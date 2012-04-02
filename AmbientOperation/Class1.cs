@@ -1,6 +1,9 @@
 ﻿namespace AmbientOperation
 {
     using System;
+    using System.Linq;
+
+    using Castle.DynamicProxy;
 
     using NUnit.Framework;
     using Autofac;
@@ -11,12 +14,18 @@
 
         public static IContainer Container;
 
+        public IService CreateServiceInterceptor(IComponentContext componentContext)
+        {
+            var generator = new ProxyGenerator();
+            return generator.CreateInterfaceProxyWithoutTarget<IService>(new ServiceInterceptor());
+        }
+
         [SetUp]
         public void SetUp()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<ServiceImpl>().As<IService>().InstancePerLifetimeScope().Named<IService>("implementation");
-            builder.RegisterType<ServiceWrapper>().As<IService>();
+            builder.RegisterType<ServiceImpl>().Named<IService>("implementation").InstancePerLifetimeScope();
+            builder.Register(this.CreateServiceInterceptor);
             builder.RegisterType<LowLevelComponentNeedingOperation>().As<ILowLevelComponentNeedingOperation>().InstancePerLifetimeScope();
             Container = builder.Build();
         }
@@ -28,7 +37,7 @@
 
             serviceInstance.ReadData();
 
-            Assert.That(OperationRun,Is.EqualTo(OperationType.Read));
+            Assert.That(OperationRun, Is.EqualTo(OperationType.Read));
         }
 
         [Test]
@@ -38,7 +47,7 @@
 
             serviceInstance.WriteData();
 
-            Assert.That(OperationRun,Is.EqualTo(OperationType.Write));
+            Assert.That(OperationRun, Is.EqualTo(OperationType.Write));
         }
 
         private IService GetServiceInstance()
@@ -47,36 +56,27 @@
         }
     }
 
-    class ServiceWrapper : IService
+    public class ServiceInterceptor : IInterceptor
     {
-        public void ReadData()
-        {
-            this.WrapCall(s => s.ReadData(), OperationType.Read);
-        }
-
-        private void WrapCall(Action<IService> serviceAction, OperationType operationType)
-        {
-            IContainer container = GetContainer();
-            using (var innerContainer = container.BeginLifetimeScope(b => this.SetupLifetime(b, operationType)))
-            {
-                var inner = innerContainer.ResolveNamed<IService>("implementation");
-                serviceAction(inner);
-            }
-        }
-
         private static IContainer GetContainer()
         {
             return Class1.Container;
         }
-
+        
         private void SetupLifetime(ContainerBuilder containerBuilder, OperationType operationType)
         {
             containerBuilder.Register(x => operationType);
         }
 
-        public void WriteData()
+        public void Intercept(IInvocation invocation)
         {
-            this.WrapCall(s => s.ReadData(), OperationType.Write);
+            IContainer container = GetContainer();
+            var operationNameAttribute =(OperationNameAttribute) invocation.Method.GetCustomAttributes(typeof(OperationNameAttribute), false).Single();
+            using (var innerContainer = container.BeginLifetimeScope(b => this.SetupLifetime(b, operationNameAttribute.OperationType)))
+            {
+                var inner = innerContainer.ResolveNamed<IService>("implementation");
+                invocation.Method.Invoke(inner, invocation.Arguments);
+            }
         }
     }
 
@@ -111,12 +111,12 @@
 
         public void ReadData()
         {
-           lowLevelComponent.DoSomething(); 
+            lowLevelComponent.DoSomething();
         }
 
         public void WriteData()
         {
-           lowLevelComponent.DoSomething(); 
+            lowLevelComponent.DoSomething();
         }
     }
 
@@ -126,10 +126,22 @@
         Write
     }
 
-    internal interface IService
+    public interface IService
     {
+        [OperationName(OperationType.Read)]
         void ReadData();
 
+        [OperationName(OperationType.Write)]
         void WriteData();
+    }
+
+    public class OperationNameAttribute : Attribute
+    {
+        public OperationType OperationType { get; set; }
+
+        public OperationNameAttribute(OperationType operationType)
+        {
+            OperationType = operationType;
+        }
     }
 }

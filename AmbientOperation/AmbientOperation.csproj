@@ -31,17 +31,86 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>packages\Antlr3.Runtime.3.1.3.42154\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac">
-      <HintPath>packages\Autofac.2.6.1.841\lib\NET40\Autofac.dll</HintPath>
+      <HintPath>packages\autofac.2.6.1.841\lib\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Autofac.Configuration">
-      <HintPath>packages\Autofac.2.6.1.841\lib\NET40\Autofac.Configuration.dll</HintPath>
+      <HintPath>packages\autofac.2.6.1.841\lib\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.AggregateService">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.AggregateService.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.Attributed">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.Attributed.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.CommonServiceLocator">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.DomainServices">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.DomainServices.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.DynamicProxy2">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.DynamicProxy2.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.EnterpriseLibraryConfigurator">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.EnterpriseLibraryConfigurator.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.Moq">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.Multitenant">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.Multitenant.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.NHibernate">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.NMock2">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.NMock2.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.Prism">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.Profiling">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.Profiling.dll</HintPath>
+    </Reference>
+    <Reference Include="AutofacContrib.Startable">
+      <HintPath>packages\AutofacContrib.2.6.1.843\lib\AutofacContrib.Startable.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>packages\Castle.Core.2.5.2\lib\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor">
+      <HintPath>packages\Castle.Windsor.2.5.3.1\lib\Castle.Windsor.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>packages\Iesi.Collections.3.1.0.4002\lib\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>packages\log4net.1.2.10.1\lib\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation">
+      <HintPath>packages\CommonServiceLocator.1.1.0.1\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>packages\NHibernate.3.1.0.4002\lib\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>packages\NHibernate.3.1.0.4002\lib\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Caches.SysCache2">
+      <HintPath>packages\NHibernate.3.1.0.4002\lib\NHibernate.Caches.SysCache2.dll</HintPath>
     </Reference>
     <Reference Include="NSubstitute">
       <HintPath>packages\NSubstitute.1.3.0.0\lib\NET40\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Stateless">
+      <HintPath>packages\stateless.2.3.1.1\lib\Stateless.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
