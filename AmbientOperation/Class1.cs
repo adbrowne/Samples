@@ -17,7 +17,7 @@
         public IService CreateServiceInterceptor(IComponentContext componentContext)
         {
             var generator = new ProxyGenerator();
-            return generator.CreateInterfaceProxyWithoutTarget<IService>(new ServiceInterceptor());
+            return generator.CreateInterfaceProxyWithoutTarget<IService>(componentContext.Resolve<ServiceInterceptor>());
         }
 
         [SetUp]
@@ -25,6 +25,7 @@
         {
             var builder = new ContainerBuilder();
             builder.RegisterType<ServiceImpl>().Named<IService>("implementation").InstancePerLifetimeScope();
+            builder.RegisterType<ServiceInterceptor>();
             builder.Register(this.CreateServiceInterceptor);
             builder.RegisterType<LowLevelComponentNeedingOperation>().As<ILowLevelComponentNeedingOperation>().InstancePerLifetimeScope();
             Container = builder.Build();
@@ -58,11 +59,13 @@
 
     public class ServiceInterceptor : IInterceptor
     {
-        private static IContainer GetContainer()
+        private readonly ILifetimeScope lifetimeScope;
+
+        public ServiceInterceptor(ILifetimeScope lifetimeScope)
         {
-            return Class1.Container;
+            this.lifetimeScope = lifetimeScope;
         }
-        
+
         private void SetupLifetime(ContainerBuilder containerBuilder, OperationType operationType)
         {
             containerBuilder.Register(x => operationType);
@@ -70,9 +73,8 @@
 
         public void Intercept(IInvocation invocation)
         {
-            IContainer container = GetContainer();
             var operationNameAttribute =(OperationNameAttribute) invocation.Method.GetCustomAttributes(typeof(OperationNameAttribute), false).Single();
-            using (var innerContainer = container.BeginLifetimeScope(b => this.SetupLifetime(b, operationNameAttribute.OperationType)))
+            using (var innerContainer = lifetimeScope.BeginLifetimeScope(b => this.SetupLifetime(b, operationNameAttribute.OperationType)))
             {
                 var inner = innerContainer.ResolveNamed<IService>("implementation");
                 invocation.Method.Invoke(inner, invocation.Arguments);
