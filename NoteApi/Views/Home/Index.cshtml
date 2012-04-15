@@ -1,5 +1,13 @@
-﻿@{
+﻿@model IEnumerable<NoteApi.Domain.Image>
+@{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
+
+<ul>
+@foreach (var image in Model)
+{
+    <li>@image.Name</li>
+}
+</ul>
