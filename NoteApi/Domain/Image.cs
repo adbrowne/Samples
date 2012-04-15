@@ -6,19 +6,17 @@ using FluentNHibernate.Mapping;
 
 namespace NoteApi.Domain
 {
-    public class Image
+    public class Image : IEntity
     {
         public virtual Guid Id { get; set; }
         public virtual string Name { get; set; }
     }
 
-    public class ImageMap : ClassMap<Image>
+    public class ImageNote : IEntity
     {
-        public ImageMap()
-        {
-            Id(x => x.Id);
-            Map(x => x.Name);
-            Table("tblImage");
-        }
+        public virtual Guid Id { get; set; }
+        public virtual string Text { get; set; }
+        public virtual long X { get; set; }
+        public virtual long Y { get; set; }
     }
 }

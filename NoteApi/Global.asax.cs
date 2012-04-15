@@ -17,6 +17,7 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NoteApi.Domain;
 using NHibernate.Tool.hbm2ddl;
+using FluentNHibernate.Automapping;
 
 namespace NoteApi
 {
@@ -84,14 +85,30 @@ namespace NoteApi
         
         private ISessionFactory CreateSessionFactory()
         {
+            var automapConfig = new NoteApiAutomapperConfiguration();
             return Fluently.Configure()
-                .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(Image).Assembly))
+                .Mappings(m => 
+                    {
+                    m.AutoMappings.Add(
+                        AutoMap.AssemblyOf<Image>(automapConfig));
+                    m.FluentMappings
+                        .AddFromAssembly(typeof(Image).Assembly);
+                    }
+                )
                 .Database(SQLiteConfiguration.Standard.InMemory())
                 .ExposeConfiguration(c => SavedConfig = c )
                 .BuildSessionFactory();
         }
         
         private NHibernate.Cfg.Configuration SavedConfig;
+    }
+
+    public class NoteApiAutomapperConfiguration : DefaultAutomappingConfiguration
+    {
+        public override bool ShouldMap(Type type)
+        {
+            return type.Namespace == typeof(Image).Namespace;
+        }
     }
 
     public class UnitOfWork : IDisposable
