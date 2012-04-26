@@ -1,0 +1,14 @@
+﻿@model WidgetCreatorMvc.Models.Widget.WidgetListViewModel
+
+@{
+    ViewBag.Title = "Widget List";
+}
+
+<h2>Widget List</h2>
+
+<ul>
+    @foreach(var widget in Model.Items)
+    {
+        <ul>@Html.ActionLink(widget.Title, "View", new { widget.Id })</ul>
+    }
+</ul>
