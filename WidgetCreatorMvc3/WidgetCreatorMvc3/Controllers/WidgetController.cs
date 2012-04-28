@@ -39,6 +39,11 @@
         [HttpPost]
         public ActionResult UpdateTitle(WidgetTitleUpdate update)
         {
+            if (!ModelState.IsValid)
+            {
+                return UpdateTitle(update.Id);
+            }
+
             this.service.UpdateWidgetTitle(update);
             return this.RedirectToAction("Index");
         }

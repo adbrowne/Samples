@@ -9,6 +9,7 @@
     <li>
         @Html.LabelFor(x => x.Update.NewTitle)
         @Html.EditorFor(x => x.Update.NewTitle)
+        @Html.ValidationMessageFor(x => x.Update.NewTitle)
     </li>
     
     <input type="submit" value="Update" />

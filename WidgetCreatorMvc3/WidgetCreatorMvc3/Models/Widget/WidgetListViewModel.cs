@@ -1,5 +1,6 @@
 namespace WidgetCreatorMvc.Models.Widget
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -12,7 +13,21 @@ namespace WidgetCreatorMvc.Models.Widget
         public class WidgetListViewModelItem
         {
             public string Id { get; set; }
-            public string Title { get; set; }
+
+            private string title;
+
+            public string Title
+            {
+                get
+                {
+                    if (String.IsNullOrEmpty(title)) return "[No Title]";
+                    return this.title;
+                }
+                set
+                {
+                    this.title = value;
+                }
+            }
         }
 
         public WidgetListViewModel(IEnumerable<WidgetSummary> widgets)
