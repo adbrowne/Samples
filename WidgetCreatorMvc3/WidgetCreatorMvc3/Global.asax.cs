@@ -7,10 +7,18 @@ using System.Web.Routing;
 
 namespace WidgetCreatorMvc3
 {
+    using System.Collections;
+
     using Autofac;
     using Autofac.Integration.Mvc;
 
+    using FluentValidation;
+    using FluentValidation.Mvc;
+    using FluentValidation.Results;
+
     using WidgetCreatorMvc.Service;
+
+    using WidgetCreatorMvc3.Service.DTO;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -44,8 +52,33 @@ namespace WidgetCreatorMvc3
             builder.RegisterModelBinderProvider();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            FluentValidationModelValidatorProvider.Configure(
+                c => c.ValidatorFactory = new MyValidatorFactory() 
+                );
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+    }
+
+    public class MyValidatorFactory : IValidatorFactory
+    {
+        public IValidator<T> GetValidator<T>()
+        {
+            return (IValidator<T>)GetValidator(typeof(T));
+        }
+
+        public IValidator GetValidator(Type type)
+        {
+            if (type == typeof(WidgetTitleUpdate)) return new WidgetTitleValidator();
+            return null;
+        }
+    }
+
+    public class WidgetTitleValidator : AbstractValidator<WidgetTitleUpdate>
+    {
+        public WidgetTitleValidator()
+        {
+            RuleFor(x => x.NewTitle).NotEmpty();
         }
     }
 }

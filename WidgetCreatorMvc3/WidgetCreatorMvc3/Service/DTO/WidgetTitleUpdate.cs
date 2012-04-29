@@ -8,7 +8,6 @@ namespace WidgetCreatorMvc3.Service.DTO
     {
         public WidgetId Id { get; set; }
 
-        [Required]
         public string NewTitle { get; set; }
     }
 }
