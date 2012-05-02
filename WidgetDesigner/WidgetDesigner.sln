@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetDesigner", "WidgetDesigner\WidgetDesigner.csproj", "{76AD10E3-5551-48F4-9533-31ADF21370A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76AD10E3-5551-48F4-9533-31ADF21370A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76AD10E3-5551-48F4-9533-31ADF21370A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76AD10E3-5551-48F4-9533-31ADF21370A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76AD10E3-5551-48F4-9533-31ADF21370A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
