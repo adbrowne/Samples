@@ -1,0 +1,10 @@
+﻿@model WidgetDesigner.Models.CreateApprovalViewModel
+Hello World
+@using (Html.BeginForm())
+{
+    <input type="file" name="widgetImage" />
+    
+    @Html.TextBoxFor(x => x.Title)
+
+    <input type="submit" value="Create" />
+}
