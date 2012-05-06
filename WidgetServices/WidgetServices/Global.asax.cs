@@ -15,6 +15,7 @@ namespace WidgetServices
     using NHibernate.Tool.hbm2ddl;
 
     using WidgetServices.Services.Approval;
+    using WidgetServices.Services.People;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -72,6 +73,7 @@ namespace WidgetServices
                 .SingleInstance();
 
             builder.RegisterType<WidgetService>().As<IWidgetService>();
+            builder.RegisterType<PersonService>().As<IPersonService>();
             builder.Register(c =>
                 {
                     var session = c.Resolve<ISessionFactory>().OpenSession();

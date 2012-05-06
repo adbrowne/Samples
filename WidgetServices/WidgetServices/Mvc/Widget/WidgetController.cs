@@ -4,14 +4,18 @@
     using System.Web.Mvc;
 
     using WidgetServices.Services.Approval;
+    using WidgetServices.Services.People;
 
     public class WidgetController : Controller
     {
         private readonly IWidgetService _widgetService;
 
-        public WidgetController(IWidgetService widgetService)
+        private readonly IPersonService _personService;
+
+        public WidgetController(IWidgetService widgetService, IPersonService personService)
         {
             this._widgetService = widgetService;
+            _personService = personService;
         }
 
         public ActionResult Index(Guid id)
@@ -19,7 +23,8 @@
             var widgetDetails = this._widgetService.GetWidgetDetails(id);
             return this.View(new ViewWidgetViewModel
                 {
-                    Title = widgetDetails.Title
+                    Title = widgetDetails.Title,
+                    People = _personService.GetPeople()
                 });
         }
 

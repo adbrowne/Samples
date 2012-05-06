@@ -1,12 +1,9 @@
 ﻿@model WidgetServices.Mvc.Widget.ViewWidgetViewModel
-
 @{
     ViewBag.Title = "Widget: " + Model.Title;
 }
-
 <h2>Widget: @Model.Title</h2>
-
-@using(Html.BeginForm())
+@using (Html.BeginForm())
 {
     <ul>
         <li>
@@ -15,10 +12,13 @@
             @Html.ValidationMessageFor(x => x.Title)
         </li>
         <li>
+            @Html.LabelFor(x => x.Approvers)
+            @Html.ListBoxFor(x => x.Approvers, Model.PeopleSelectList)
+        </li>
+        <li>
             <input type="submit" value="Save" />
         </li>
     </ul>
 }
-
 @Html.ActionLink("Create New", "Create")
 @Html.ActionLink("Widget List", "List")

@@ -162,6 +162,8 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Mvc\Widget\CreateWidgetViewModel.cs" />
+    <Compile Include="Services\People\IPersonService.cs" />
+    <Compile Include="Services\People\Person.cs" />
     <Compile Include="Mvc\Widget\ViewWidgetViewModel.cs" />
     <Compile Include="Mvc\Widget\WidgetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -175,6 +177,7 @@
     <Compile Include="Services\Approval\IWidgetService.cs" />
     <Compile Include="Services\Approval\WidgetDetails.cs" />
     <Compile Include="Services\Approval\WidgetService.cs" />
+    <Compile Include="Services\People\PersonService.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
