@@ -5,3 +5,17 @@
 }
 
 <h2>Widget: @Model.Title</h2>
+
+@using(Html.BeginForm())
+{
+    <ul>
+        <li>
+            @Html.LabelFor(x => x.Title)
+            @Html.TextBoxFor(x => x.Title)
+            @Html.ValidationMessageFor(x => x.Title)
+        </li>
+        <li>
+            <input type="submit" value="Save" />
+        </li>
+    </ul>
+}

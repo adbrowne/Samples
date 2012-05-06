@@ -26,11 +26,19 @@ namespace WidgetServices.Controllers
                 });
         }
 
+        [HttpPost]
+        public ActionResult Index(Guid id, WidgetDetails widgetDetails)
+        {
+            widgetDetails.ApprovalId = id;
+            _widgetService.SetWidgetDetails(widgetDetails);
+            return RedirectToAction("Index");
+        }
+
         public ActionResult Create()
         {
             return View(new CreateWidgetViewModel
                 {
-                    ApprovalId = Guid.NewGuid() 
+                    ApprovalId = Guid.NewGuid()
                 });
         }
 

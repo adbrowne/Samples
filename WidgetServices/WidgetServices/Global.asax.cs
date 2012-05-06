@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -40,6 +34,13 @@ namespace WidgetServices
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
+            );
+            
+            routes.MapRoute(
+                name: "IdDirect",
+                url: "{controller}/{id}",
+                defaults: new { controller = "Home", action = "Index" },
+                constraints: new { id = "^[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}$" }
             );
 
             routes.MapRoute(
