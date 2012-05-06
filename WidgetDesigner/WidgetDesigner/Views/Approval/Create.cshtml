@@ -1,0 +1,18 @@
+﻿@model WidgetDesigner.Models.CreateApprovalViewModel
+@{
+    ViewBag.Title = "Create Approval";
+}
+<h2>Create Approval</h2>
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(x => x.ApprovalId)
+    <ul>
+        <li>
+            @Html.LabelFor(x => x.Title)
+            @Html.TextBoxFor(x => x.Title)
+        </li>
+        <li>
+            <input type="submit" value="Create" />
+        </li>
+    </ul>
+}

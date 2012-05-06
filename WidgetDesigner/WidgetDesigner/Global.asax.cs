@@ -7,6 +7,13 @@ using System.Web.Routing;
 
 namespace WidgetDesigner
 {
+    using Autofac;
+    using Autofac.Integration.Mvc;
+
+    using WidgetDesigner.Contract;
+    using WidgetDesigner.Infra;
+    using WidgetDesigner.Infra.InProcess;
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
@@ -35,6 +42,13 @@ namespace WidgetDesigner
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            var builder = new ContainerBuilder();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterType<Bus>().As<IBus>();
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
         }
     }
 }
