@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
 
     using NHibernate;
@@ -25,33 +24,37 @@
 
         public void SetApprovers(Guid versionId, IEnumerable<Guid> approvers)
         {
-            Debug.Assert(approvers != null, "approvers != null");
+            this.UpdateRole(versionId, approvers, VersionRoleType.Approver);
+        }
+        
+        public void SetViewers(Guid versionId, IEnumerable<Guid> viewers)
+        {
+            this.UpdateRole(versionId, viewers, VersionRoleType.Viewer);
+        }
 
-            var currentApprovers = _session.CreateCriteria<VersionRole>()
-               .Add(Restrictions.Eq("VersionId", versionId))
-               .Add(Restrictions.Eq("Role", VersionRoleType.Approver))
-               .List<VersionRole>();
+        private void UpdateRole(Guid versionId, IEnumerable<Guid> newMembers, VersionRoleType versionRoleType)
+        {
+            var currentApprovers =
+                this._session.CreateCriteria<VersionRole>().Add(Restrictions.Eq("VersionId", versionId)).Add(
+                    Restrictions.Eq("Role", versionRoleType)).List<VersionRole>();
 
             // Remove people no longer selected
             foreach (var currentApprover in currentApprovers)
             {
-                if (!approvers.Contains(currentApprover.PersonId))
+                if (!newMembers.Contains(currentApprover.PersonId))
                 {
-                    _session.Delete(currentApprover);
+                    this._session.Delete(currentApprover);
                 }
             }
 
             // Add people missing
-            foreach (var personId in approvers)
+            foreach (var personId in newMembers)
             {
-               if(!currentApprovers.Any(x => x.PersonId == personId))
-               {
-                   _session.Save(
-                       new VersionRole
-                           {
-                               PersonId = personId, Role = VersionRoleType.Approver, VersionId = versionId
-                           });
-               }
+                if (!currentApprovers.Any(x => x.PersonId == personId))
+                {
+                    this._session.Save(
+                        new VersionRole { PersonId = personId, Role = versionRoleType, VersionId = versionId });
+                }
             }
         }
     }

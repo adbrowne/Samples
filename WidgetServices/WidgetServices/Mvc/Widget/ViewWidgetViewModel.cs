@@ -19,5 +19,9 @@ namespace WidgetServices.Mvc.Widget
         public IEnumerable<SelectListItem> ApproverSelectList { get; set; }
 
         public string VersionId { get; set; }
+
+        public IEnumerable<Guid> Viewers { get; set; }
+        
+        public IEnumerable<SelectListItem> ViewersSelectList { get; set; }
     }
 }

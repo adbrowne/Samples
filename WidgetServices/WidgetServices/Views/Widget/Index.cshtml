@@ -17,6 +17,10 @@
             @Html.ListBoxFor(x => x.Approvers, Model.ApproverSelectList)
         </li>
         <li>
+            @Html.LabelFor(x => x.Viewers)
+            @Html.ListBoxFor(x => x.Viewers, Model.ViewersSelectList)
+        </li>
+        <li>
             <input type="submit" value="Save" />
         </li>
     </ul>

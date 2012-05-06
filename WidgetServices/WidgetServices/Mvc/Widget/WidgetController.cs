@@ -34,7 +34,7 @@
             var widgetDetails = this._widgetService.GetWidgetDetails(id);
             var people = _personService.GetPeople().ToList();
             var currentVersion = _versionService.GetCurrentVersion(id);
-            var approvers = _versionRolesService.GetRoles(currentVersion.VersionId);
+            var approvers = _versionRolesService.GetRoles(currentVersion.VersionId).ToList();
             
             Debug.Assert(people != null, "people != null");
 
@@ -43,21 +43,28 @@
                     Title = widgetDetails.Title,
                     People = people,
                     VersionId = currentVersion.VersionId.ToString(),
-                    ApproverSelectList = people.Select(p => new SelectListItem
-                        {
-                            Text = p.Name,
-                            Value = p.Id.ToString(),
-                            Selected = approvers.Any(x => x.PersonId == p.Id && x.Role == VersionRoleType.Approver)
-                        })
+                    ApproverSelectList = GetPeopleSelectList(approvers, people, VersionRoleType.Approver),
+                    ViewersSelectList = GetPeopleSelectList(approvers, people, VersionRoleType.Viewer)
+                });
+        }
+
+        private static IEnumerable<SelectListItem> GetPeopleSelectList(IEnumerable<VersionRole> currentlySelected, IEnumerable<Person> people, VersionRoleType roleType)
+        {
+            return people.Select(p => new SelectListItem
+                {
+                    Text = p.Name,
+                    Value = p.Id.ToString(),
+                    Selected = currentlySelected.Any(x => x.PersonId == p.Id && x.Role == roleType)
                 });
         }
 
         [HttpPost]
-        public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetails widgetDetails)
+        public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetails widgetDetails, IEnumerable<Guid> viewers)
         {
             widgetDetails.ApprovalId = id;
             _widgetService.SetWidgetDetails(widgetDetails);
             _versionRolesService.SetApprovers(versionId, approvers);
+            _versionRolesService.SetViewers(versionId, viewers);
             return this.RedirectToAction("Index");
         }
 
