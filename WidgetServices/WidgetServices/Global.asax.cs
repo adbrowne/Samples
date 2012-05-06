@@ -17,7 +17,7 @@ namespace WidgetServices
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
-    using WidgetServices.Services.Widget;
+    using WidgetServices.Services.WidgetDetails;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -74,7 +74,7 @@ namespace WidgetServices
                 .As<ISessionFactory>()
                 .SingleInstance();
 
-            builder.RegisterType<WidgetService>().As<IWidgetService>();
+            builder.RegisterType<WidgetDetailsService>().As<IWidgetDetailsService>();
             builder.RegisterType<PersonService>().As<IPersonService>();
             builder.RegisterType<VersionService>().As<IVersionService>();
             builder.RegisterType<VersionRolesService>().As<IVersionRolesService>();

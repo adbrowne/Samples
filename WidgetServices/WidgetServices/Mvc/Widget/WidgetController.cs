@@ -9,11 +9,11 @@
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
-    using WidgetServices.Services.Widget;
+    using WidgetServices.Services.WidgetDetails;
 
     public class WidgetController : Controller
     {
-        private readonly IWidgetService _widgetService;
+        private readonly IWidgetDetailsService _widgetDetailsService;
 
         private readonly IPersonService _personService;
 
@@ -21,9 +21,9 @@
 
         private readonly IVersionRolesService _versionRolesService;
 
-        public WidgetController(IWidgetService widgetService, IPersonService personService, IVersionService versionService, IVersionRolesService versionRolesService)
+        public WidgetController(IWidgetDetailsService widgetDetailsService, IPersonService personService, IVersionService versionService, IVersionRolesService versionRolesService)
         {
-            this._widgetService = widgetService;
+            this._widgetDetailsService = widgetDetailsService;
             _personService = personService;
             _versionService = versionService;
             _versionRolesService = versionRolesService;
@@ -31,7 +31,7 @@
 
         public ActionResult Index(Guid id)
         {
-            var widgetDetails = this._widgetService.GetWidgetDetails(id);
+            var widgetDetails = this._widgetDetailsService.GetWidgetDetails(id);
             var people = _personService.GetPeople().ToList();
             var currentVersion = _versionService.GetCurrentVersion(id);
             var approvers = _versionRolesService.GetRoles(currentVersion.VersionId).ToList();
@@ -59,10 +59,10 @@
         }
 
         [HttpPost]
-        public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetails widgetDetails, IEnumerable<Guid> viewers)
+        public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetail widgetDetail, IEnumerable<Guid> viewers)
         {
-            widgetDetails.ApprovalId = id;
-            _widgetService.SetWidgetDetails(widgetDetails);
+            widgetDetail.ApprovalId = id;
+            this._widgetDetailsService.SetWidgetDetails(widgetDetail);
             _versionRolesService.SetApprovers(versionId, approvers);
             _versionRolesService.SetViewers(versionId, viewers);
             return this.RedirectToAction("Index");
@@ -72,7 +72,7 @@
         {
             return this.View(new WidgetListViewModel
             {
-                Widgets = this._widgetService.GetWidgets()
+                Widgets = this._widgetDetailsService.GetWidgets()
             });
         }
 
@@ -85,10 +85,10 @@
         }
 
         [HttpPost]
-        public ActionResult Create(WidgetDetails widgetDetails)
+        public ActionResult Create(WidgetDetail widgetDetail)
         {
-            this._widgetService.SetWidgetDetails(widgetDetails);
-            return this.RedirectToAction("Index", new { id = widgetDetails.ApprovalId });
+            this._widgetDetailsService.SetWidgetDetails(widgetDetail);
+            return this.RedirectToAction("Index", new { id = widgetDetail.ApprovalId });
         }
     }
 }

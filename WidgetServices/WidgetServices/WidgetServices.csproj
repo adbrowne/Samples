@@ -182,10 +182,10 @@
     <Compile Include="Services\Version\IVersionService.cs" />
     <Compile Include="Services\Version\VersionService.cs" />
     <Compile Include="Services\Version\WidgetVersion.cs" />
-    <Compile Include="Services\Widget\WidgetDetailsMapping.cs" />
-    <Compile Include="Services\Widget\IWidgetService.cs" />
-    <Compile Include="Services\Widget\WidgetDetails.cs" />
-    <Compile Include="Services\Widget\WidgetService.cs" />
+    <Compile Include="Services\WidgetDetails\WidgetDetailMapping.cs" />
+    <Compile Include="Services\WidgetDetails\IWidgetDetailsService.cs" />
+    <Compile Include="Services\WidgetDetails\WidgetDetail.cs" />
+    <Compile Include="Services\WidgetDetails\WidgetDetailsService.cs" />
     <Compile Include="Services\People\PersonService.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
