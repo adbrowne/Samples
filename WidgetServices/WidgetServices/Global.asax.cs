@@ -85,7 +85,7 @@ namespace WidgetServices
                     var session = c.Resolve<ISessionFactory>().OpenSession();
                     session.BeginTransaction();
                     return session;
-                }).InstancePerHttpRequest();
+                }).InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();
@@ -94,8 +94,11 @@ namespace WidgetServices
                 x =>
                 {
                     var theEvent = (WidgetCreatedEvent)x;
-                    var versionService = container.Resolve<IVersionService>();
-                    versionService.WidgetCreated(theEvent);
+                    using (var childContainer = container.BeginLifetimeScope())
+                    {
+                        var versionService = childContainer.Resolve<IVersionService>();
+                        versionService.WidgetCreated(theEvent);
+                    }
                 });
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
