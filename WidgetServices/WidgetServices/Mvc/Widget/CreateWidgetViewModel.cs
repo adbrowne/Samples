@@ -4,7 +4,7 @@ namespace WidgetServices.Mvc.Widget
 
     public class CreateWidgetViewModel
     {
-        public Guid ApprovalId { get; set; }
+        public Guid WidgetId { get; set; }
         public string Title { get; set; }
     }
 }

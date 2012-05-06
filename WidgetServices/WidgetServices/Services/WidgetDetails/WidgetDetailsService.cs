@@ -6,12 +6,17 @@ namespace WidgetServices.Services.WidgetDetails
 
     using NHibernate;
 
+    using WidgetServices.Messaging;
+
     class WidgetDetailsService : IWidgetDetailsService
     {
+        private readonly IBus _bus;
+
         private readonly ISession _session;
 
-        public WidgetDetailsService(UnitOfWork unitOfWork)
+        public WidgetDetailsService(UnitOfWork unitOfWork, IBus bus)
         {
+            _bus = bus;
             this._session = unitOfWork.Session;
         }
 
@@ -28,6 +33,12 @@ namespace WidgetServices.Services.WidgetDetails
         public IEnumerable<WidgetDetail> GetWidgets()
         {
             return this._session.CreateCriteria<WidgetDetail>().List<WidgetDetail>().ToList();
+        }
+
+        public void CreateWidget(WidgetDetail widgetDetail)
+        {
+            SetWidgetDetails(widgetDetail);
+            _bus.Publish(new WidgetCreatedEvent(widgetDetail.WidgetId));
         }
     }
 }

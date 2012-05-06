@@ -162,6 +162,9 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Messaging\Bus.cs" />
+    <Compile Include="Messaging\IBus.cs" />
+    <Compile Include="Mvc\Widget\CreateWidgetCommand.cs" />
     <Compile Include="Mvc\Widget\CreateWidgetViewModel.cs" />
     <Compile Include="Services\People\IPersonService.cs" />
     <Compile Include="Services\People\Person.cs" />
@@ -182,6 +185,8 @@
     <Compile Include="Services\Version\IVersionService.cs" />
     <Compile Include="Services\Version\VersionService.cs" />
     <Compile Include="Services\Version\WidgetVersion.cs" />
+    <Compile Include="Services\Version\WidgetVersionMap.cs" />
+    <Compile Include="Services\WidgetDetails\WidgetCreatedEvent.cs" />
     <Compile Include="Services\WidgetDetails\WidgetDetailMapping.cs" />
     <Compile Include="Services\WidgetDetails\IWidgetDetailsService.cs" />
     <Compile Include="Services\WidgetDetails\WidgetDetail.cs" />

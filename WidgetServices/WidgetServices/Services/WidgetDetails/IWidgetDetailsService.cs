@@ -10,5 +10,7 @@
         WidgetDetail GetWidgetDetails(Guid id);
 
         IEnumerable<WidgetDetail> GetWidgets();
+
+        void CreateWidget(WidgetDetail widgetDetail);
     }
 }

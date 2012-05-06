@@ -4,7 +4,7 @@ namespace WidgetServices.Services.WidgetDetails
 
     public class WidgetDetail
     {
-        public virtual Guid ApprovalId { get; set; }
+        public virtual Guid WidgetId { get; set; }
         public virtual string Title { get; set; }
     }
 }

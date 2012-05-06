@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Web.Mvc;
 
+    using WidgetServices.Messaging;
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
@@ -13,6 +14,8 @@
 
     public class WidgetController : Controller
     {
+        private readonly IBus _bus;
+
         private readonly IWidgetDetailsService _widgetDetailsService;
 
         private readonly IPersonService _personService;
@@ -21,9 +24,10 @@
 
         private readonly IVersionRolesService _versionRolesService;
 
-        public WidgetController(IWidgetDetailsService widgetDetailsService, IPersonService personService, IVersionService versionService, IVersionRolesService versionRolesService)
+        public WidgetController(IBus bus, IWidgetDetailsService widgetDetailsService, IPersonService personService, IVersionService versionService, IVersionRolesService versionRolesService)
         {
-            this._widgetDetailsService = widgetDetailsService;
+            _bus = bus;
+            _widgetDetailsService = widgetDetailsService;
             _personService = personService;
             _versionService = versionService;
             _versionRolesService = versionRolesService;
@@ -61,7 +65,7 @@
         [HttpPost]
         public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetail widgetDetail, IEnumerable<Guid> viewers)
         {
-            widgetDetail.ApprovalId = id;
+            widgetDetail.WidgetId = id;
             this._widgetDetailsService.SetWidgetDetails(widgetDetail);
             _versionRolesService.SetApprovers(versionId, approvers);
             _versionRolesService.SetViewers(versionId, viewers);
@@ -80,15 +84,16 @@
         {
             return this.View(new CreateWidgetViewModel
                 {
-                    ApprovalId = Guid.NewGuid()
+                    WidgetId = Guid.NewGuid()
                 });
         }
 
         [HttpPost]
         public ActionResult Create(WidgetDetail widgetDetail)
         {
+            this._widgetDetailsService.CreateWidget(widgetDetail);
             this._widgetDetailsService.SetWidgetDetails(widgetDetail);
-            return this.RedirectToAction("Index", new { id = widgetDetail.ApprovalId });
+            return this.RedirectToAction("Index", new { id = widgetDetail.WidgetId });
         }
     }
 }

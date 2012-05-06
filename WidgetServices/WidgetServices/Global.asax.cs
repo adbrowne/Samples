@@ -14,6 +14,7 @@ namespace WidgetServices
     using NHibernate;
     using NHibernate.Tool.hbm2ddl;
 
+    using WidgetServices.Messaging;
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
@@ -38,7 +39,7 @@ namespace WidgetServices
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "IdDirect",
                 url: "{controller}/{id}",
@@ -78,6 +79,7 @@ namespace WidgetServices
             builder.RegisterType<PersonService>().As<IPersonService>();
             builder.RegisterType<VersionService>().As<IVersionService>();
             builder.RegisterType<VersionRolesService>().As<IVersionRolesService>();
+            builder.RegisterType<Bus>().As<IBus>().SingleInstance();
             builder.Register(c =>
                 {
                     var session = c.Resolve<ISessionFactory>().OpenSession();
@@ -87,6 +89,14 @@ namespace WidgetServices
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();
+            var bus = container.Resolve<IBus>();
+            bus.Subscribe<WidgetCreatedEvent>(
+                x =>
+                {
+                    var theEvent = (WidgetCreatedEvent)x;
+                    var versionService = container.Resolve<IVersionService>();
+                    versionService.WidgetCreated(theEvent);
+                });
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 

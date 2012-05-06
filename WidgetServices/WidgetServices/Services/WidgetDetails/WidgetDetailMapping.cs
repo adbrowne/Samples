@@ -6,7 +6,7 @@
     {
         public WidgetDetailMapping()
         {
-            this.Id(x => x.ApprovalId).GeneratedBy.Assigned();
+            this.Id(x => x.WidgetId).GeneratedBy.Assigned();
             this.Map(x => x.Title);
         } 
     }

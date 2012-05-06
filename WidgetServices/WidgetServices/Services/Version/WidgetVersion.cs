@@ -6,5 +6,6 @@ namespace WidgetServices.Services.Version
     {
         public virtual Guid WidgetId { get; set; }
         public virtual Guid VersionId { get; set; }
+        public virtual int VersionNumber { get; set; }
     }
 }

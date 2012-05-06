@@ -9,6 +9,6 @@
 <ul>
     @foreach (var details in Model.Widgets)
     {
-        <li>@Html.ActionLink(details.Title, "Index", new { id = details.ApprovalId })</li> 
+        <li>@Html.ActionLink(details.Title, "Index", new { id = details.WidgetId })</li> 
     }
 </ul>
