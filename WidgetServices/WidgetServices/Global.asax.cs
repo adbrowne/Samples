@@ -15,6 +15,8 @@ namespace WidgetServices
     using NHibernate.Tool.hbm2ddl;
 
     using WidgetServices.Services.People;
+    using WidgetServices.Services.Version;
+    using WidgetServices.Services.VersionRoles;
     using WidgetServices.Services.Widget;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -74,12 +76,14 @@ namespace WidgetServices
 
             builder.RegisterType<WidgetService>().As<IWidgetService>();
             builder.RegisterType<PersonService>().As<IPersonService>();
+            builder.RegisterType<VersionService>().As<IVersionService>();
+            builder.RegisterType<VersionRolesService>().As<IVersionRolesService>();
             builder.Register(c =>
                 {
                     var session = c.Resolve<ISessionFactory>().OpenSession();
                     session.BeginTransaction();
                     return session;
-                }).InstancePerLifetimeScope();
+                }).InstancePerHttpRequest();
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();

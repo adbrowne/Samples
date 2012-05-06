@@ -5,6 +5,7 @@
 <h2>Widget: @Model.Title</h2>
 @using (Html.BeginForm())
 {
+    @Html.HiddenFor(x => x.VersionId)
     <ul>
         <li>
             @Html.LabelFor(x => x.Title)
@@ -13,7 +14,7 @@
         </li>
         <li>
             @Html.LabelFor(x => x.Approvers)
-            @Html.ListBoxFor(x => x.Approvers, Model.PeopleSelectList)
+            @Html.ListBoxFor(x => x.Approvers, Model.ApproverSelectList)
         </li>
         <li>
             <input type="submit" value="Save" />

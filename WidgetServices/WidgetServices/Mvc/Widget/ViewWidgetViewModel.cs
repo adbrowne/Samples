@@ -16,12 +16,8 @@ namespace WidgetServices.Mvc.Widget
 
         public IEnumerable<Guid> Approvers { get; set; }
 
-        public IEnumerable<SelectListItem> PeopleSelectList
-        {
-            get
-            {
-                return People.Select(p => new SelectListItem { Text = p.Name, Value = p.Id.ToString() });
-            }
-        }
+        public IEnumerable<SelectListItem> ApproverSelectList { get; set; }
+
+        public string VersionId { get; set; }
     }
 }
