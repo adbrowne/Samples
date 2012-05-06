@@ -3,6 +3,8 @@ using System.Web.Mvc;
 
 namespace WidgetServices.Controllers
 {
+    using System.Collections.Generic;
+
     using WidgetServices.Services.Approval;
 
     public class WidgetController : Controller
@@ -24,6 +26,14 @@ namespace WidgetServices.Controllers
                 {
                     Title = widgetDetails.Title
                 });
+        }
+
+        public ActionResult List()
+        {
+            return View(new WidgetListViewModel
+            {
+                Widgets = _widgetService.GetWidgets()
+            });
         }
 
         [HttpPost]
@@ -48,6 +58,11 @@ namespace WidgetServices.Controllers
             _widgetService.SetWidgetDetails(widgetDetails);
             return RedirectToAction("Index", new { id = widgetDetails.ApprovalId });
         }
+    }
+
+    public class WidgetListViewModel
+    {
+        public IEnumerable<WidgetDetails> Widgets { get; set; }
     }
 
     public class ViewWidgetViewModel

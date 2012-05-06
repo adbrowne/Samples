@@ -1,0 +1,14 @@
+﻿@model WidgetServices.Controllers.WidgetListViewModel
+
+@{
+    ViewBag.Title = "My Widgets";
+}
+
+<h2>My Widgets</h2>
+
+<ul>
+    @foreach (var details in Model.Widgets)
+    {
+        <li>@Html.ActionLink(details.Title, "Index", new { id = details.ApprovalId })</li> 
+    }
+</ul>

@@ -1,6 +1,8 @@
 ﻿namespace WidgetServices.Services.Approval
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using NHibernate;
 
@@ -9,6 +11,8 @@
         void SetWidgetDetails(WidgetDetails widgetDetails);
 
         WidgetDetails GetWidgetDetails(Guid id);
+
+        IEnumerable<WidgetDetails> GetWidgets();
     }
 
     public class WidgetDetails
@@ -34,6 +38,11 @@
         public WidgetDetails GetWidgetDetails(Guid id)
         {
             return _session.Get<WidgetDetails>(id);
+        }
+
+        public IEnumerable<WidgetDetails> GetWidgets()
+        {
+            return _session.CreateCriteria<WidgetDetails>().List<WidgetDetails>().ToList();
         }
     }
 }
