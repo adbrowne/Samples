@@ -2,7 +2,7 @@ namespace WidgetServices.Mvc.Widget
 {
     using System.Collections.Generic;
 
-    using WidgetServices.Services.Approval;
+    using WidgetServices.Services.Widget;
 
     public class WidgetListViewModel
     {

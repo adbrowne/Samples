@@ -173,10 +173,10 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Approval\ApprovalDetailsMapping.cs" />
-    <Compile Include="Services\Approval\IWidgetService.cs" />
-    <Compile Include="Services\Approval\WidgetDetails.cs" />
-    <Compile Include="Services\Approval\WidgetService.cs" />
+    <Compile Include="Services\Widget\WidgetDetailsMapping.cs" />
+    <Compile Include="Services\Widget\IWidgetService.cs" />
+    <Compile Include="Services\Widget\WidgetDetails.cs" />
+    <Compile Include="Services\Widget\WidgetService.cs" />
     <Compile Include="Services\People\PersonService.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>

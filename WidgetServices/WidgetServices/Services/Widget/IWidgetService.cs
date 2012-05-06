@@ -1,4 +1,4 @@
-﻿namespace WidgetServices.Services.Approval
+﻿namespace WidgetServices.Services.Widget
 {
     using System;
     using System.Collections.Generic;

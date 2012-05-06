@@ -3,8 +3,8 @@
     using System;
     using System.Web.Mvc;
 
-    using WidgetServices.Services.Approval;
     using WidgetServices.Services.People;
+    using WidgetServices.Services.Widget;
 
     public class WidgetController : Controller
     {

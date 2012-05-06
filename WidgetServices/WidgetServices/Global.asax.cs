@@ -14,8 +14,8 @@ namespace WidgetServices
     using NHibernate;
     using NHibernate.Tool.hbm2ddl;
 
-    using WidgetServices.Services.Approval;
     using WidgetServices.Services.People;
+    using WidgetServices.Services.Widget;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

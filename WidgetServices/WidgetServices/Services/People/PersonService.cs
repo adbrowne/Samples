@@ -3,8 +3,6 @@ namespace WidgetServices.Services.People
     using System;
     using System.Collections.Generic;
 
-    using WidgetServices.Mvc.Widget;
-
     class PersonService : IPersonService
     {
         public IEnumerable<Person> GetPeople()
