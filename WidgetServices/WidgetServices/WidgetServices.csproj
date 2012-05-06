@@ -161,8 +161,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\WidgetController.cs" />
+    <Compile Include="Mvc\Widget\CreateWidgetViewModel.cs" />
+    <Compile Include="Mvc\Widget\ViewWidgetViewModel.cs" />
+    <Compile Include="Mvc\Widget\WidgetController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Mvc\Widget\WidgetListViewModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
