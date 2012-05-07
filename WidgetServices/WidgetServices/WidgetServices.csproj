@@ -159,8 +159,6 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Messaging\Bus.cs" />
-    <Compile Include="Messaging\IBus.cs" />
     <Compile Include="Mvc\Widget\CreateWidgetCommand.cs" />
     <Compile Include="Mvc\Widget\CreateWidgetViewModel.cs" />
     <Compile Include="Services\People\IPersonService.cs" />
@@ -236,7 +234,9 @@
     <Content Include="Scripts\knockout-2.0.0.debug.js" />
     <Content Include="Scripts\knockout-2.0.0.js" />
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -285,6 +285,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Widget\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolBus\SchoolBus.csproj">
+      <Project>{8908e942-b2e5-443c-bf5c-2ce079a7763e}</Project>
+      <Name>SchoolBus</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

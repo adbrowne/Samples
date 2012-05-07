@@ -2,7 +2,8 @@ namespace WidgetServices.Services.WidgetDetails
 {
     using System;
 
-    using WidgetServices.Messaging;
+    using SchoolBus;
+    using SchoolBus.InProcess;
 
     public class WidgetCreatedEvent : IMessage
     {

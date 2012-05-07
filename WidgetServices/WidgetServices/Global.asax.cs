@@ -14,7 +14,9 @@ namespace WidgetServices
     using NHibernate;
     using NHibernate.Tool.hbm2ddl;
 
-    using WidgetServices.Messaging;
+    using SchoolBus;
+    using SchoolBus.InProcess;
+
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
@@ -79,7 +81,7 @@ namespace WidgetServices
             builder.RegisterType<PersonService>().As<IPersonService>();
             builder.RegisterType<VersionService>().As<IVersionService>();
             builder.RegisterType<VersionRolesService>().As<IVersionRolesService>();
-            builder.RegisterType<Bus>().As<IBus>().SingleInstance();
+            builder.RegisterModule<SchoolBusInProcessModule>();
             builder.Register(c =>
                 {
                     var session = c.Resolve<ISessionFactory>().OpenSession();

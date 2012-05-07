@@ -2,7 +2,8 @@
 {
     using NUnit.Framework;
 
-    using WidgetServices.Messaging;
+    using SchoolBus;
+    using SchoolBus.InProcess;
 
     [TestFixture]
     public class BusTests
@@ -10,7 +11,7 @@
         [Test]
         public void EventTest()
         {
-            var bus = new Bus();
+            var bus = new Bus(null, new HandlerRegistry());
             int called = 0;
             bus.Subscribe<WidgetCreatedEvent>((x) => called++);
 

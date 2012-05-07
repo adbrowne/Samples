@@ -6,7 +6,7 @@ namespace WidgetServices.Services.WidgetDetails
 
     using NHibernate;
 
-    using WidgetServices.Messaging;
+    using SchoolBus;
 
     class WidgetDetailsService : IWidgetDetailsService
     {
