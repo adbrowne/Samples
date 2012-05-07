@@ -17,6 +17,7 @@ namespace WidgetServices
     using SchoolBus;
     using SchoolBus.InProcess;
 
+    using WidgetServices.Messages;
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
@@ -89,9 +90,10 @@ namespace WidgetServices
                     return session;
                 }).InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
+            builder.RegisterType<WidgetDetailsService>();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();
-            var bus = container.Resolve<IBus>();
+            var bus = container.Resolve<Bus>();
             bus.Subscribe<WidgetCreatedEvent>(
                 x =>
                 {
@@ -102,6 +104,7 @@ namespace WidgetServices
                         versionService.WidgetCreated(theEvent);
                     }
                 });
+            bus.ForCommand<CreateWidgetCommand>().Execute<WidgetDetailsService>();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 

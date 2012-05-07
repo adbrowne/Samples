@@ -34,6 +34,8 @@
 
         private void UpdateRole(Guid versionId, IEnumerable<Guid> newMembers, VersionRoleType versionRoleType)
         {
+            var membersToAdd = newMembers ?? new List<Guid>();
+
             var currentApprovers =
                 this._session.CreateCriteria<VersionRole>().Add(Restrictions.Eq("VersionId", versionId)).Add(
                     Restrictions.Eq("Role", versionRoleType)).List<VersionRole>();
@@ -41,14 +43,14 @@
             // Remove people no longer selected
             foreach (var currentApprover in currentApprovers)
             {
-                if (!newMembers.Contains(currentApprover.PersonId))
+                if (!membersToAdd.Contains(currentApprover.PersonId))
                 {
                     this._session.Delete(currentApprover);
                 }
             }
 
             // Add people missing
-            foreach (var personId in newMembers)
+            foreach (var personId in membersToAdd)
             {
                 if (!currentApprovers.Any(x => x.PersonId == personId))
                 {

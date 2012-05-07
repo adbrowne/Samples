@@ -35,7 +35,7 @@
         public TResult Execute<TResult>(object command)
         {
             this._reply = null;
-            var commandHandler = this._commandHandlerBuilders[command.GetType()].Build();
+            var commandHandler = _handlerRegistry.CommandHandlerBuilders[command.GetType()].Build();
             commandHandler.Execute(command);
 
             if (this._reply != null)
@@ -53,14 +53,13 @@
             this._reply = replyCode;
         }
 
-        private readonly Dictionary<Type, CommandHandlerChainBuilder> _commandHandlerBuilders = new Dictionary<Type, CommandHandlerChainBuilder>();
 
         private object _reply;
 
         public CommandHandlerChainBuilder ForCommand<T>()
         {
             var chainBuilder = this._chcb();
-            this._commandHandlerBuilders.Add(typeof(T), chainBuilder);
+            _handlerRegistry.CommandHandlerBuilders.Add(typeof(T), chainBuilder);
             return chainBuilder;
         }
     }

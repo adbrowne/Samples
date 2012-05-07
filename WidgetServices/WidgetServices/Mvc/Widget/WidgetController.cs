@@ -8,6 +8,7 @@
 
     using SchoolBus;
 
+    using WidgetServices.Messages;
     using WidgetServices.Services.People;
     using WidgetServices.Services.Version;
     using WidgetServices.Services.VersionRoles;
@@ -90,11 +91,11 @@
         }
 
         [HttpPost]
-        public ActionResult Create(WidgetDetail widgetDetail)
+        public ActionResult Create(CreateWidgetCommand createWidgetCommand)
         {
-            this._widgetDetailsService.CreateWidget(widgetDetail);
-            this._widgetDetailsService.SetWidgetDetails(widgetDetail);
-            return this.RedirectToAction("Index", new { id = widgetDetail.WidgetId });
+            _bus.Execute<bool>(createWidgetCommand);
+            this._widgetDetailsService.SetWidgetDetails(createWidgetCommand);
+            return this.RedirectToAction("Index", new { id = createWidgetCommand.WidgetId });
         }
     }
 }

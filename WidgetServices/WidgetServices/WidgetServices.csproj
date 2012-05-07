@@ -159,7 +159,7 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Mvc\Widget\CreateWidgetCommand.cs" />
+    <Compile Include="Messages\CreateWidgetCommand.cs" />
     <Compile Include="Mvc\Widget\CreateWidgetViewModel.cs" />
     <Compile Include="Services\People\IPersonService.cs" />
     <Compile Include="Services\People\Person.cs" />

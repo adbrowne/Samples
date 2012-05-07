@@ -19,5 +19,9 @@
             var handlers = this._handlers[eventType];
             handlers.Add(handler);
         }
+
+        private readonly Dictionary<Type, CommandHandlerChainBuilder> _commandHandlerBuilders = new Dictionary<Type, CommandHandlerChainBuilder>();
+
+        public Dictionary<Type, CommandHandlerChainBuilder> CommandHandlerBuilders { get { return _commandHandlerBuilders; } }
     }
 }

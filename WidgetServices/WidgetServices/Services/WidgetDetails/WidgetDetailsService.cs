@@ -8,6 +8,8 @@ namespace WidgetServices.Services.WidgetDetails
 
     using SchoolBus;
 
+    using WidgetServices.Messages;
+
     class WidgetDetailsService : IWidgetDetailsService
     {
         private readonly IBus _bus;
@@ -35,10 +37,10 @@ namespace WidgetServices.Services.WidgetDetails
             return this._session.CreateCriteria<WidgetDetail>().List<WidgetDetail>().ToList();
         }
 
-        public void CreateWidget(WidgetDetail widgetDetail)
+        public void Execute(CreateWidgetCommand command)
         {
-            SetWidgetDetails(widgetDetail);
-            _bus.Publish(new WidgetCreatedEvent(widgetDetail.WidgetId));
+            SetWidgetDetails(command);
+            _bus.Publish(new WidgetCreatedEvent(command.WidgetId));
         }
     }
 }
