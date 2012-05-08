@@ -160,6 +160,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Messages\CreateWidgetCommand.cs" />
+    <Compile Include="Messages\UpdateWidgetCommand.cs" />
     <Compile Include="Mvc\Widget\CreateWidgetViewModel.cs" />
     <Compile Include="Services\People\IPersonService.cs" />
     <Compile Include="Services\People\Person.cs" />
@@ -173,6 +174,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\VersionRoles\IVersionRolesService.cs" />
+    <Compile Include="Messages\SetRoleUsersCommand.cs" />
     <Compile Include="Services\VersionRoles\VersionRole.cs" />
     <Compile Include="Services\VersionRoles\VersionRoleMap.cs" />
     <Compile Include="Services\VersionRoles\VersionRolesService.cs" />

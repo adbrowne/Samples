@@ -6,9 +6,5 @@ namespace WidgetServices.Services.VersionRoles
     public interface IVersionRolesService
     {
         IEnumerable<VersionRole> GetRoles(Guid versionId);
-
-        void SetApprovers(Guid versionId, IEnumerable<Guid> approvers);
-
-        void SetViewers(Guid versionId, IEnumerable<Guid> viewers);
     }
 }

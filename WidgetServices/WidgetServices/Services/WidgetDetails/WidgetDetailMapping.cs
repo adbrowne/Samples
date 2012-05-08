@@ -13,6 +13,11 @@
         } 
     }
 
+    public sealed class UpdateWidgetCommandMapping : SubclassMap<UpdateWidgetCommand>
+    {
+        
+    }
+
     public sealed class CreateWidgetCommandMapping : SubclassMap<CreateWidgetCommand>
     {
         

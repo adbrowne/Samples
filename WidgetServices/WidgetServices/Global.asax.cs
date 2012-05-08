@@ -91,6 +91,7 @@ namespace WidgetServices
                 }).InstancePerLifetimeScope();
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<WidgetDetailsService>();
+            builder.RegisterType<VersionRolesService>();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();
             var bus = container.Resolve<Bus>();
@@ -104,7 +105,9 @@ namespace WidgetServices
                         versionService.WidgetCreated(theEvent);
                     }
                 });
+            bus.ForCommand<UpdateWidgetCommand>().Execute<WidgetDetailsService>();
             bus.ForCommand<CreateWidgetCommand>().Execute<WidgetDetailsService>();
+            bus.ForCommand<SetRoleUsersCommand>().Execute<VersionRolesService>();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
 

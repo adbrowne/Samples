@@ -1,4 +1,6 @@
-﻿namespace WidgetServices.Services.VersionRoles
+﻿using WidgetServices.Messages;
+
+namespace WidgetServices.Services.VersionRoles
 {
     using System;
     using System.Collections.Generic;
@@ -22,14 +24,9 @@
                .List<VersionRole>();
         }
 
-        public void SetApprovers(Guid versionId, IEnumerable<Guid> approvers)
+        public void Execute(SetRoleUsersCommand command)
         {
-            this.UpdateRole(versionId, approvers, VersionRoleType.Approver);
-        }
-        
-        public void SetViewers(Guid versionId, IEnumerable<Guid> viewers)
-        {
-            this.UpdateRole(versionId, viewers, VersionRoleType.Viewer);
+            this.UpdateRole(command.VersionId, command.Users, command.Role);
         }
 
         private void UpdateRole(Guid versionId, IEnumerable<Guid> newMembers, VersionRoleType versionRoleType)

@@ -19,27 +19,28 @@ namespace WidgetServices.Services.WidgetDetails
         public WidgetDetailsService(UnitOfWork unitOfWork, IBus bus)
         {
             _bus = bus;
-            this._session = unitOfWork.Session;
-        }
-
-        public void SetWidgetDetails(WidgetDetail widgetDetail)
-        {
-            this._session.SaveOrUpdate(widgetDetail);
+            _session = unitOfWork.Session;
         }
 
         public WidgetDetail GetWidgetDetails(Guid id)
         {
-            return this._session.Get<WidgetDetail>(id);
+            return _session.Get<WidgetDetail>(id);
         }
 
         public IEnumerable<WidgetDetail> GetWidgets()
         {
-            return this._session.CreateCriteria<WidgetDetail>().List<WidgetDetail>().ToList();
+            return _session.CreateCriteria<WidgetDetail>().List<WidgetDetail>().ToList();
+        }
+
+        public void Execute(UpdateWidgetCommand command)
+        {
+            _session.Update(command);
         }
 
         public void Execute(CreateWidgetCommand command)
         {
-            SetWidgetDetails(command);
+            _session.SaveOrUpdate(command);
+            _session.Flush();
             _bus.Publish(new WidgetCreatedEvent(command.WidgetId));
         }
     }

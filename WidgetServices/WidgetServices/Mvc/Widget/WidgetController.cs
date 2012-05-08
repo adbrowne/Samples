@@ -41,7 +41,7 @@
             var people = _personService.GetPeople().ToList();
             var currentVersion = _versionService.GetCurrentVersion(id);
             var approvers = _versionRolesService.GetRoles(currentVersion.VersionId).ToList();
-            
+
             Debug.Assert(people != null, "people != null");
 
             return this.View(new ViewWidgetViewModel
@@ -68,10 +68,28 @@
         public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetail widgetDetail, IEnumerable<Guid> viewers)
         {
             widgetDetail.WidgetId = id;
-            this._widgetDetailsService.SetWidgetDetails(widgetDetail);
-            _versionRolesService.SetApprovers(versionId, approvers);
-            _versionRolesService.SetViewers(versionId, viewers);
-            return this.RedirectToAction("Index");
+            
+            _bus.Execute<bool>(new UpdateWidgetCommand
+                                   {
+                                       Title = widgetDetail.Title,
+                                       WidgetId = widgetDetail.WidgetId
+                                   });
+
+            _bus.Execute<bool>(new SetRoleUsersCommand
+            {
+                Role = VersionRoleType.Approver,
+                Users = approvers,
+                VersionId = versionId
+            });
+
+            _bus.Execute<bool>(new SetRoleUsersCommand
+            {
+                Role = VersionRoleType.Viewer,
+                Users = viewers,
+                VersionId = versionId
+            });
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult List()
@@ -94,8 +112,8 @@
         public ActionResult Create(CreateWidgetCommand createWidgetCommand)
         {
             _bus.Execute<bool>(createWidgetCommand);
-            this._widgetDetailsService.SetWidgetDetails(createWidgetCommand);
-            return this.RedirectToAction("Index", new { id = createWidgetCommand.WidgetId });
+
+            return RedirectToAction("Index", new { id = createWidgetCommand.WidgetId });
         }
     }
 }

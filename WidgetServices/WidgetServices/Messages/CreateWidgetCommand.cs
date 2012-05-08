@@ -1,6 +1,6 @@
 ﻿namespace WidgetServices.Messages
 {
-    using WidgetServices.Services.WidgetDetails;
+    using Services.WidgetDetails;
 
     public class CreateWidgetCommand : WidgetDetail
     {

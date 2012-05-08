@@ -13,14 +13,17 @@ namespace SchoolBus.InProcess
 
         public CommandExecutor(Type handler, ILifetimeScope scope)
         {
-            this._handler = handler;
-            this._scope = scope;
+            _handler = handler;
+            _scope = scope;
         }
 
         public void Execute(object command)
         {
-            var instance = this._scope.Resolve(this._handler);
-            this._handler.InvokeMember("Execute", BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.Instance, null, instance, new[] { command });
+            using (var childScope = _scope.BeginLifetimeScope())
+            {
+                var instance = childScope.Resolve(_handler);
+                _handler.InvokeMember("Execute", BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.Instance, null, instance, new[] { command });
+            }
         }
     }
 }

@@ -8,14 +8,14 @@ namespace SchoolBus.InProcess
 
         public CommandHandlerChainBuilder(Func<Type, CommandExecutor> createExecutor)
         {
-            this._createExecutor = createExecutor;
+            _createExecutor = createExecutor;
         }
 
         private Type _handler;
 
         public CommandHandlerChainBuilder Execute<T>()
         {
-            this._handler = typeof(T);
+            _handler = typeof(T);
             return this;
         }
 
