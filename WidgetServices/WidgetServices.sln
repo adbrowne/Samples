@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetServices.Tests", "Wid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolBus", "SchoolBus\SchoolBus.csproj", "{8908E942-B2E5-443C-BF5C-2CE079A7763E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolBus.EasyNetQ", "SchoolBus.EasyNetQ\SchoolBus.EasyNetQ.csproj", "{EE785D35-E7CA-45CF-A4C2-FA3ADCEA214F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{8908E942-B2E5-443C-BF5C-2CE079A7763E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8908E942-B2E5-443C-BF5C-2CE079A7763E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8908E942-B2E5-443C-BF5C-2CE079A7763E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE785D35-E7CA-45CF-A4C2-FA3ADCEA214F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE785D35-E7CA-45CF-A4C2-FA3ADCEA214F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE785D35-E7CA-45CF-A4C2-FA3ADCEA214F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE785D35-E7CA-45CF-A4C2-FA3ADCEA214F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
