@@ -68,26 +68,35 @@
         public ActionResult Index(Guid id, Guid versionId, IEnumerable<Guid> approvers, WidgetDetail widgetDetail, IEnumerable<Guid> viewers)
         {
             widgetDetail.WidgetId = id;
-            
-            _bus.Execute<bool>(new UpdateWidgetCommand
+
+            _bus.Request<UpdateWidgetCommand, bool>(new UpdateWidgetCommand
                                    {
                                        Title = widgetDetail.Title,
                                        WidgetId = widgetDetail.WidgetId
-                                   });
+                                   }, ok =>
+                                          {
 
-            _bus.Execute<bool>(new SetRoleUsersCommand
+                                          });
+
+            _bus.Request<SetRoleUsersCommand, bool>(new SetRoleUsersCommand
             {
                 Role = VersionRoleType.Approver,
                 Users = approvers,
                 VersionId = versionId
-            });
+            }, ok =>
+                                          {
 
-            _bus.Execute<bool>(new SetRoleUsersCommand
+                                          });
+
+            _bus.Request<SetRoleUsersCommand, bool>(new SetRoleUsersCommand
             {
                 Role = VersionRoleType.Viewer,
                 Users = viewers,
                 VersionId = versionId
-            });
+            }, ok =>
+                                          {
+
+                                          });
 
             return RedirectToAction("Index");
         }
@@ -111,7 +120,7 @@
         [HttpPost]
         public ActionResult Create(CreateWidgetCommand createWidgetCommand)
         {
-            _bus.Execute<bool>(createWidgetCommand);
+            _bus.Request<CreateWidgetCommand, bool>(createWidgetCommand, ok => { Debug.WriteLine("Complete"); });
 
             return RedirectToAction("Index", new { id = createWidgetCommand.WidgetId });
         }

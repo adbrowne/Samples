@@ -62,5 +62,30 @@
             _handlerRegistry.CommandHandlerBuilders.Add(typeof(T), chainBuilder);
             return chainBuilder;
         }
+
+        public void FuturePublish<T>(DateTime timeToRespond, T message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Publish<T>(T message)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Request<TRequest, TResponse>(TRequest request, Action<TResponse> onResponse)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Respond<TRequest, TResponse>(Func<TRequest, TResponse> responder)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Subscribe<T>(string subscriptionId, Action<T> onMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

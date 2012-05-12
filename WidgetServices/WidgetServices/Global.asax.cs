@@ -1,7 +1,10 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using EasyNetQ;
+using SchoolBus.EasyNetQ;
 
 namespace WidgetServices
 {
@@ -92,19 +95,33 @@ namespace WidgetServices
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
             builder.RegisterType<WidgetDetailsService>();
             builder.RegisterType<VersionRolesService>();
+            builder.RegisterType<EasyNetQBus>().As<IBus>();
+            builder.Register(c => RabbitHutch.CreateBus("host=localhost"));
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             var container = builder.Build();
             var bus = container.Resolve<Bus>();
-            bus.Subscribe<WidgetCreatedEvent>(
+            var rBus = container.Resolve<IBus>();
+            rBus.Subscribe<WidgetCreatedEvent>(Guid.NewGuid().ToString(),
                 x =>
                 {
-                    var theEvent = (WidgetCreatedEvent)x;
+                    var theEvent = x;
                     using (var childContainer = container.BeginLifetimeScope())
                     {
                         var versionService = childContainer.Resolve<IVersionService>();
                         versionService.WidgetCreated(theEvent);
                     }
                 });
+
+            rBus.Respond<CreateWidgetCommand, bool>(command =>
+                                                        {
+                                                            using (var child = container.BeginLifetimeScope())
+                                                            {
+                                                                var service = child.Resolve<WidgetDetailsService>();
+                                                                service.Execute(command);
+                                                                return true;
+                                                            }
+                                                        });
+
             bus.ForCommand<UpdateWidgetCommand>().Execute<WidgetDetailsService>();
             bus.ForCommand<CreateWidgetCommand>().Execute<WidgetDetailsService>();
             bus.ForCommand<SetRoleUsersCommand>().Execute<VersionRolesService>();
@@ -122,4 +139,27 @@ namespace WidgetServices
             mappingConfiguration.FluentMappings.AddFromAssemblyOf<MvcApplication>();
         }
     }
+    public class NoDebugLogger : IEasyNetQLogger
+    {
+        public void DebugWrite(string format, params object[] args)
+        {
+
+        }
+
+        public void InfoWrite(string format, params object[] args)
+        {
+            Console.WriteLine(format, args);
+        }
+
+        public void ErrorWrite(string format, params object[] args)
+        {
+            Console.WriteLine(format, args);
+        }
+
+        public void ErrorWrite(Exception exception)
+        {
+            Console.WriteLine(exception);
+        }
+    }
+
 }

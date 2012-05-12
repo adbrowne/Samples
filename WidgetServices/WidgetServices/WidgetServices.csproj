@@ -56,6 +56,10 @@
       <HintPath>..\packages\Autofac.Mvc4.2.6.1.841\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EasyNetQ, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EasyNetQ.0.3.0.0\lib\net40-Client\EasyNetQ.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\packages\FluentNHibernate.1.3.0.727\lib\FluentNHibernate.dll</HintPath>
       <Private>True</Private>
@@ -289,6 +293,10 @@
     <Content Include="Views\Widget\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SchoolBus.EasyNetQ\SchoolBus.EasyNetQ.csproj">
+      <Project>{EE785D35-E7CA-45CF-A4C2-FA3ADCEA214F}</Project>
+      <Name>SchoolBus.EasyNetQ</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SchoolBus\SchoolBus.csproj">
       <Project>{8908e942-b2e5-443c-bf5c-2ce079a7763e}</Project>
       <Name>SchoolBus</Name>

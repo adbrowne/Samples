@@ -35,7 +35,7 @@
 
         public void Execute(TestCommand command)
         {
-            _bus.Reply(2);
+            _bus.Respond<TestCommand, int>(_ => 2);
         }
     }
 

@@ -2,7 +2,7 @@ namespace WidgetServices.Services.People
 {
     using System.Collections.Generic;
 
-    class PersonService : IPersonService
+    public class PersonService : IPersonService
     {
         public IEnumerable<Person> GetPeople()
         {

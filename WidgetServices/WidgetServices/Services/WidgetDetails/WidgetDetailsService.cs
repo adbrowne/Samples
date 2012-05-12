@@ -10,7 +10,7 @@ namespace WidgetServices.Services.WidgetDetails
 
     using WidgetServices.Messages;
 
-    class WidgetDetailsService : IWidgetDetailsService
+    public class WidgetDetailsService : IWidgetDetailsService
     {
         private readonly IBus _bus;
 

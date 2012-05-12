@@ -8,7 +8,7 @@ namespace WidgetServices.Services.Version
 
     using WidgetServices.Services.WidgetDetails;
 
-    class VersionService : IVersionService
+    public class VersionService : IVersionService
     {
         private readonly ISession _session;
 
