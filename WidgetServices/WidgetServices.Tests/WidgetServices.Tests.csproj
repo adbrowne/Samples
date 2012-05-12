@@ -50,6 +50,7 @@
     <Compile Include="BusTests.cs" />
     <Compile Include="CommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModelCompositionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
