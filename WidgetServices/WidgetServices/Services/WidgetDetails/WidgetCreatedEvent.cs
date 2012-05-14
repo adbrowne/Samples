@@ -5,6 +5,11 @@ namespace WidgetServices.Services.WidgetDetails
     using SchoolBus;
     using SchoolBus.InProcess;
 
+    public class WidgetReminderEvent
+    {
+        
+    }
+
     public class WidgetCreatedEvent : IMessage
     {
         public WidgetCreatedEvent(Guid widgetId)

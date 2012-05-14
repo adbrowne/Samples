@@ -35,6 +35,12 @@
             _versionRolesService = versionRolesService;
         }
 
+        public ActionResult SetReminder()
+        {
+            _bus.FuturePublish(DateTime.Now.AddMinutes(1), new WidgetReminderEvent());
+            return List();
+        }
+
         public ActionResult Index(Guid id)
         {
             var widgetDetails = this._widgetDetailsService.GetWidgetDetails(id);

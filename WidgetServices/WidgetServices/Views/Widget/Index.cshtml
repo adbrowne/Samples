@@ -27,3 +27,8 @@
 }
 @Html.ActionLink("Create New", "Create")
 @Html.ActionLink("Widget List", "List")
+
+@using(Html.BeginForm("SetReminder", "Widget"))
+{
+    <input type="submit" value="Set Reminder"/>
+}

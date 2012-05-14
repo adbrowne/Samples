@@ -58,6 +58,7 @@ namespace WidgetServices.Host
                     }
                 });
 
+            rBus.Subscribe<WidgetReminderEvent>(Guid.NewGuid().ToString(), _=> Console.WriteLine("Reminder"));
             Thread.Sleep(Timeout.Infinite);
         }
         
