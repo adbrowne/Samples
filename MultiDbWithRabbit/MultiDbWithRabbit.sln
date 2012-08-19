@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiDbWithRabbit", "MultiDbWithRabbit\MultiDbWithRabbit.csproj", "{318DBA8C-D611-4A1B-B17D-2992C0D1BEB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.MultiDbWithRabbit", "Tests.MultiDbWithRabbit\Tests.MultiDbWithRabbit.csproj", "{ACEBF5AD-955A-49A0-9A2D-A0B32D792957}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{318DBA8C-D611-4A1B-B17D-2992C0D1BEB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318DBA8C-D611-4A1B-B17D-2992C0D1BEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318DBA8C-D611-4A1B-B17D-2992C0D1BEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318DBA8C-D611-4A1B-B17D-2992C0D1BEB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACEBF5AD-955A-49A0-9A2D-A0B32D792957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACEBF5AD-955A-49A0-9A2D-A0B32D792957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACEBF5AD-955A-49A0-9A2D-A0B32D792957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACEBF5AD-955A-49A0-9A2D-A0B32D792957}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
