@@ -9,7 +9,7 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class SuccessTests
+    public class BasicSuccessTests
     {
         const int WaitTime = 100;
 

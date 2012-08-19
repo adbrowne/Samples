@@ -63,10 +63,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SetValueCommand.cs" />
-    <Compile Include="ValueCanBeSaved.cs" />
+    <Compile Include="SutBasic\SetValueCommand.cs" />
+    <Compile Include="BasicSuccessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValueService.cs" />
+    <Compile Include="SutBasic\ValueService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
