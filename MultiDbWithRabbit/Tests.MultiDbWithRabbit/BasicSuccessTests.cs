@@ -8,11 +8,11 @@
 
     using NUnit.Framework;
 
+    using Tests.MultiDbWithRabbit.SutBasic;
+
     [TestFixture]
     public class BasicSuccessTests
     {
-        const int WaitTime = 100;
-
         [Test]
         public void ValueCanBeSaved()
         {
@@ -29,7 +29,7 @@
                 publishChannel.Publish(new SetValueCommand { Value = Value });
             }
 
-            Thread.Sleep(TimeSpan.FromMilliseconds(WaitTime));
+            Thread.Sleep(TimeSpan.FromMilliseconds(TestConstants.WaitTime));
             Assert.That(valueService.Value, Is.EqualTo(Value));
         }
     }

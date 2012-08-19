@@ -1,4 +1,4 @@
-namespace Tests.MultiDbWithRabbit
+namespace Tests.MultiDbWithRabbit.SutBasic
 {
     public class SetValueCommand
     {

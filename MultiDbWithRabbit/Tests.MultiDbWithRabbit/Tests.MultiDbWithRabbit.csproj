@@ -63,14 +63,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicNhTests.cs" />
     <Compile Include="SutBasic\SetValueCommand.cs" />
     <Compile Include="BasicSuccessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SutBasic\ValueService.cs" />
+    <Compile Include="TestConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SutNh\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
